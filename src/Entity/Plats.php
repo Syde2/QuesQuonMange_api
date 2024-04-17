@@ -6,6 +6,9 @@ use App\Repository\PlatsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 
 #[ORM\Entity(repositoryClass: PlatsRepository::class)]
@@ -13,6 +16,8 @@ use ApiPlatform\Metadata\ApiResource;
     shortName: 'Plat',
 
 ) ]
+#[UniqueEntity('nom')]
+
 class Plats
 {
     #[ORM\Id]
@@ -20,7 +25,7 @@ class Plats
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique:true)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
